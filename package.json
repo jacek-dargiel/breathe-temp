@@ -1,0 +1,16 @@
+{
+  "name": "breathe-temp",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "author": "Jacek Dargiel <spambox-github@dargiel.net>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "ts-node src/index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^12.0.10",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.2"
+  }
+}
