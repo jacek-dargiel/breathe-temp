@@ -17,7 +17,7 @@
     "@types/core-js": "^2.5.2",
     "axios": "^0.19.0",
     "core-js": "^3.1.4",
-    "miio": "^0.15.6",
+    "miio": "jacek-dargiel/miio#zhimi.airpurifier.mc1",
     "rxjs": "^6.5.2",
     "tsyringe": "^3.2.0"
   }

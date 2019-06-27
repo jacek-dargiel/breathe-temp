@@ -385,10 +385,9 @@ mem@^1.1.0:
   dependencies:
     mimic-fn "^1.0.0"
 
-miio@^0.15.6:
-  version "0.15.6"
-  resolved "https://registry.yarnpkg.com/miio/-/miio-0.15.6.tgz#0da26f7b25e16e35734fd8778ff3a280465e1a6c"
-  integrity sha512-Xxj5nefwZN1FRooUxLW0uFv42lP3RTY/91W3RtdMvlIChpcbqvdxpd4O5p3UidSqOuoMcWbqmchOiNFfLXUHGQ==
+miio@jacek-dargiel/miio#zhimi.airpurifier.mc1:
+  version "0.15.4"
+  resolved "https://codeload.github.com/jacek-dargiel/miio/tar.gz/bcd44157affef0aa16dbe4b3a929b1a5a5286379"
   dependencies:
     abstract-things "^0.9.0"
     appdirectory "^0.1.0"
