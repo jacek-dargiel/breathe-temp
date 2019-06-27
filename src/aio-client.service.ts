@@ -2,6 +2,13 @@ import { singleton } from 'tsyringe';
 import { default as axios, AxiosRequestConfig } from 'axios';
 import { Observable } from 'rxjs';
 
+export interface Datum {
+  value: any;
+  lat?: number;
+  lon?: number;
+  ele?: number;
+  created_at?: Date;
+}
 @singleton()
 export class AIOClient {
   private axios = axios.create({
@@ -30,7 +37,7 @@ export class AIOClient {
     });
   }
 
-  public post(url: string, data: any) {
+  public post(url: string, data: Datum) {
     return this.request({
       url,
       data,

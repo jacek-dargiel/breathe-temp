@@ -5,10 +5,6 @@ import { switchMap, map, catchError, retry, timeout } from 'rxjs/operators';
 import { retryBackoff } from 'backoff-rxjs';
 import { AIOClient } from './aio-client.service';
 
-interface Temperature {
-  value: number;
-  unit: string;
-}
 @singleton()
 export class AppController {
   constructor(
@@ -18,8 +14,8 @@ export class AppController {
     console.log('Start');
     this.device.device$
       .pipe(
-        switchMap((device: any) => {
-          return fromEvent<[Temperature, any]>(device, 'temperatureChanged')
+        switchMap((device) => {
+          return fromEvent<[Temperature, Device]>(device, 'temperatureChanged')
             .pipe(
               map(([temp]) => temp.value),
               timeout(600000),
