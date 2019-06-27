@@ -1,8 +1,9 @@
 import { singleton } from 'tsyringe';
 import { DeviceService } from './device.service';
-import { fromEvent, concat, throwError } from 'rxjs';
-import { switchMap, tap, map, catchError, retry, timeout } from 'rxjs/operators';
+import { fromEvent, throwError } from 'rxjs';
+import { switchMap, map, catchError, retry, timeout } from 'rxjs/operators';
 import { retryBackoff } from 'backoff-rxjs';
+import { AIOClient } from './aio-client.service';
 
 interface Temperature {
   value: number;
@@ -11,7 +12,8 @@ interface Temperature {
 @singleton()
 export class AppController {
   constructor(
-    private device: DeviceService
+    private device: DeviceService,
+    private aioClient: AIOClient,
   ) {
     console.log('Start');
     this.device.device$
@@ -34,7 +36,18 @@ export class AppController {
         }),
         retryBackoff(10000)
       )
-      .subscribe((temp) => console.log(temp));
+      .subscribe(temperature => {
+        console.log(temperature);
+        this.aioClient.post(`/feeds/home-temperature/data`, { value: temperature, created_at: new Date() })
+          .pipe(
+            retry(3)
+          )
+          .subscribe({
+            error(error) {
+              console.log('Failed to log temperature to AIO.', { status: error.response.status, data: error.response.data});
+            }
+          });
+      });
 
   }
 }
