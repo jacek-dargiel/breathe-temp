@@ -16,6 +16,7 @@
   "dependencies": {
     "@types/core-js": "^2.5.2",
     "axios": "^0.19.0",
+    "backoff-rxjs": "^6.3.2",
     "core-js": "^3.1.4",
     "miio": "jacek-dargiel/miio#zhimi.airpurifier.mc1",
     "rxjs": "^6.5.2",
