@@ -3,10 +3,12 @@ dependencies:
   axios: 0.19.0
   backoff-rxjs: 6.3.2_rxjs@6.5.2
   core-js: 3.1.4
+  dotenv: 8.0.0
   miio: github.com/jacek-dargiel/miio/bcd44157affef0aa16dbe4b3a929b1a5a5286379
   rxjs: 6.5.2
   tsyringe: 3.2.0
 devDependencies:
+  '@types/dotenv': 6.1.1
   '@types/node': 12.0.10
   typescript: 3.5.2
 lockfileVersion: 5.1
@@ -15,6 +17,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-+NPqjXgyA02xTHKJDeDca9u8Zr42ts6jhdND4C3PrPeQ35RJa0dmfAedXW7a9K4N1QcBbuWI1nSfGK4r1eVFCQ==
+  /@types/dotenv/6.1.1:
+    dependencies:
+      '@types/node': 12.0.10
+    dev: true
+    resolution:
+      integrity: sha512-ftQl3DtBvqHl9L16tpqqzA4YzCSXZfi7g8cQceTz5rOlYtk/IZbFjAv3mLOQlNIgOaylCQWQoBdDQHPgEBJPHg==
   /@types/node/12.0.10:
     dev: true
     resolution:
@@ -175,6 +183,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-9dJgKStmDghO/0zbyfCK0yR0SLU=
+  /dotenv/8.0.0:
+    dev: false
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-30xVGqjLjiUOArT4+M5q9sYdvuR4riM6yK9wMcas9Vbp6zZa+ocC9dp6QoftuhTPhFAiLK/0C5Ni2nou/Bk8lg==
   /dwaal/0.1.4:
     dependencies:
       debug: 3.2.6
@@ -729,10 +743,12 @@ packages:
     version: 0.15.4
 specifiers:
   '@types/core-js': ^2.5.2
+  '@types/dotenv': ^6.1.1
   '@types/node': ^12.0.10
   axios: ^0.19.0
   backoff-rxjs: ^6.3.2
   core-js: ^3.1.4
+  dotenv: ^8.0.0
   miio: 'jacek-dargiel/miio#zhimi.airpurifier.mc1'
   rxjs: ^6.5.2
   tsyringe: ^3.2.0

@@ -9,6 +9,7 @@
     "start": "tsc && node ./lib/index.js"
   },
   "devDependencies": {
+    "@types/dotenv": "^6.1.1",
     "@types/node": "^12.0.10",
     "typescript": "^3.5.2"
   },
@@ -17,6 +18,7 @@
     "axios": "^0.19.0",
     "backoff-rxjs": "^6.3.2",
     "core-js": "^3.1.4",
+    "dotenv": "^8.0.0",
     "miio": "jacek-dargiel/miio#zhimi.airpurifier.mc1",
     "rxjs": "^6.5.2",
     "tsyringe": "^3.2.0"
