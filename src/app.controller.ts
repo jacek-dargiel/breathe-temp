@@ -4,6 +4,7 @@ import { throwError, Observable } from 'rxjs';
 import { catchError, bufferTime, map, filter } from 'rxjs/operators';
 import { retryBackoff } from 'backoff-rxjs';
 import { LoggerService } from './logger.service';
+import * as config from './config';
 
 @singleton()
 export class AppController {
@@ -19,9 +20,9 @@ export class AppController {
           error.device && error.device.destroy();
           return throwError(error)
         }),
-        retryBackoff(10000),
-        this.averageOverTime(120000),
-        map(value => this.toFixed(value, 2)),
+        retryBackoff(config.BACKOFF_TIME),
+        this.averageOverTime(config.AVERAGING_TIME),
+        map(value => this.toFixed(value, config.AVERAGING_DIGITS)),
       )
       .subscribe(temperature => {
         this.logger.log(temperature);

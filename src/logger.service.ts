@@ -2,6 +2,7 @@ import { singleton } from 'tsyringe';
 import { retry } from 'rxjs/operators'
 
 import { AIOClient } from './aio-client.service';
+import * as config from './config'
 
 @singleton()
 export class LoggerService {
@@ -10,9 +11,9 @@ export class LoggerService {
   ) {}
   public log(value: number) {
     console.log(value);
-    this.aioClient.post(`/feeds/home-temperature/data`, { value: value, created_at: new Date() })
+    this.aioClient.post(`/feeds/${config.AIO_FEED_NAME}/data`, { value: value, created_at: new Date() })
       .pipe(
-        retry(3)
+        retry(config.LOG_RETRY_COUNT)
       )
       .subscribe({
         error(error) {

@@ -1,6 +1,7 @@
 import { singleton } from 'tsyringe';
 import { default as axios, AxiosRequestConfig } from 'axios';
 import { Observable } from 'rxjs';
+import * as config from './config';
 
 export interface Datum {
   value: any;
@@ -12,9 +13,9 @@ export interface Datum {
 @singleton()
 export class AIOClient {
   private axios = axios.create({
-    baseURL: `https://io.adafruit.com/api/v2/jdargiel`,
+    baseURL: config.API_BASE_URL,
     headers: {
-      'X-AIO-Key': 'abcd1234'
+      'X-AIO-Key': config.API_KEY
     },
   });
 
