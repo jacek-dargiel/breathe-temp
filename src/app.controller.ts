@@ -1,30 +1,19 @@
 import { singleton } from 'tsyringe';
 import { DeviceService } from './device.service';
-import { fromEvent, throwError } from 'rxjs';
-import { switchMap, map, catchError, retry, timeout } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { retryBackoff } from 'backoff-rxjs';
-import { AIOClient } from './aio-client.service';
+import { LoggerService } from './logger.service';
 
 @singleton()
 export class AppController {
   constructor(
     private device: DeviceService,
-    private aioClient: AIOClient,
+    private logger: LoggerService,
   ) {
     console.log('Start');
-    this.device.device$
+    this.device.temperature$
       .pipe(
-        switchMap((device) => {
-          return fromEvent<[Temperature, Device]>(device, 'temperatureChanged')
-            .pipe(
-              map(([temp]) => temp.value),
-              timeout(600000),
-              catchError(error => {
-                error.device = device;
-                return throwError(error)
-              })
-            )
-        }),
         catchError(error => {
           console.error('Error. Will reconnect with exponential backoff.', error);
           error.device && error.device.destroy();
@@ -33,17 +22,8 @@ export class AppController {
         retryBackoff(10000)
       )
       .subscribe(temperature => {
-        console.log(temperature);
-        this.aioClient.post(`/feeds/home-temperature/data`, { value: temperature, created_at: new Date() })
-          .pipe(
-            retry(3)
-          )
-          .subscribe({
-            error(error) {
-              console.log('Failed to log temperature to AIO.', { status: error.response.status, data: error.response.data});
-            }
-          });
+        this.logger.log(temperature);
       });
-
   }
+
 }
