@@ -9,7 +9,7 @@ import * as config from './config';
 export class DeviceService {
   public device$ = defer(() => miio.device(({
     address: config.DEVICE_ADDRESS,
-    token: config.DEVICE_TOKEN,
+    token: process.env.MI_DEVICE_TOKEN,
   })));
   public temperature$ = this.device$.pipe(
     switchMap((device) => {

@@ -15,7 +15,7 @@ export class AIOClient {
   private axios = axios.create({
     baseURL: config.API_BASE_URL,
     headers: {
-      'X-AIO-Key': config.API_KEY
+      'X-AIO-Key': process.env.AIO_KEY,
     },
   });
 

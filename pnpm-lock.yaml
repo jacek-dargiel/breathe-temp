@@ -1,5 +1,4 @@
 dependencies:
-  '@types/core-js': 2.5.2
   axios: 0.19.0
   backoff-rxjs: 6.3.2_rxjs@6.5.2
   core-js: 3.1.4
@@ -8,13 +7,14 @@ dependencies:
   rxjs: 6.5.2
   tsyringe: 3.2.0
 devDependencies:
+  '@types/core-js': 2.5.2
   '@types/dotenv': 6.1.1
   '@types/node': 12.0.10
   typescript: 3.5.2
 lockfileVersion: 5.1
 packages:
   /@types/core-js/2.5.2:
-    dev: false
+    dev: true
     resolution:
       integrity: sha512-+NPqjXgyA02xTHKJDeDca9u8Zr42ts6jhdND4C3PrPeQ35RJa0dmfAedXW7a9K4N1QcBbuWI1nSfGK4r1eVFCQ==
   /@types/dotenv/6.1.1:
