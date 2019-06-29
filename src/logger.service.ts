@@ -9,9 +9,9 @@ export class LoggerService {
   constructor(
     private aioClient: AIOClient,
   ) {}
-  public log(value: number) {
-    console.log(value);
-    this.aioClient.post(`/feeds/${config.AIO_FEED_NAME}/data`, { value: value, created_at: new Date() })
+  public log(value: number, date: Date) {
+    console.log({value, date});
+    this.aioClient.post(`/feeds/${config.AIO_FEED_NAME}/data`, { value: value, created_at: date })
       .pipe(
         retry(config.LOG_RETRY_COUNT)
       )

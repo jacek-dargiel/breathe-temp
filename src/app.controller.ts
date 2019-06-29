@@ -25,7 +25,7 @@ export class AppController {
         map(value => this.toFixed(value, config.AVERAGING_DIGITS)),
       )
       .subscribe(temperature => {
-        this.logger.log(temperature);
+        this.logger.log(temperature, new Date());
       });
   }
 
