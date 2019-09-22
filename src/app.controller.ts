@@ -1,7 +1,7 @@
 import { singleton } from 'tsyringe';
 import { DeviceService } from './device.service';
-import { throwError, Observable } from 'rxjs';
-import { catchError, bufferTime, map, filter } from 'rxjs/operators';
+import { throwError, Observable, combineLatest } from 'rxjs';
+import { catchError, bufferTime, map, filter, tap } from 'rxjs/operators';
 import { retryBackoff } from 'backoff-rxjs';
 import { LoggerService } from './logger.service';
 import * as config from './config';
@@ -14,7 +14,16 @@ export class AppController {
     private logger: LoggerService,
   ) {
     console.log('Start');
-    this.device.temperature$
+    combineLatest(
+      this.device.temperature$.pipe(
+        this.averageOverTime(),
+        tap(value => this.logger.log('home-temperature', toFixed(value, 2))),
+      ),
+      this.device.aqi$.pipe(
+        this.averageOverTime(),
+        tap(value => this.logger.log('home-aqi', toFixed(value, 2))),
+      ),
+    )
       .pipe(
         catchError(error => {
           console.error('Error. Will reconnect with exponential backoff.', error);
@@ -22,15 +31,11 @@ export class AppController {
           return throwError(error)
         }),
         retryBackoff(config.BACKOFF_TIME),
-        this.averageOverTime(config.AVERAGING_TIME),
-        map(value => toFixed(value, config.AVERAGING_DIGITS)),
       )
-      .subscribe(temperature => {
-        this.logger.log(temperature, new Date());
-      });
+      .subscribe();
   }
 
-  private averageOverTime(time: number) {
+  private averageOverTime(time = config.AVERAGING_TIME) {
     return (source$: Observable<number>) => {
       return source$.pipe(
         bufferTime(time),
