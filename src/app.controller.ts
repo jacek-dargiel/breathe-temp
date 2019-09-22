@@ -5,6 +5,7 @@ import { catchError, bufferTime, map, filter } from 'rxjs/operators';
 import { retryBackoff } from 'backoff-rxjs';
 import { LoggerService } from './logger.service';
 import * as config from './config';
+import { toFixed, sum } from './helpers';
 
 @singleton()
 export class AppController {
@@ -22,7 +23,7 @@ export class AppController {
         }),
         retryBackoff(config.BACKOFF_TIME),
         this.averageOverTime(config.AVERAGING_TIME),
-        map(value => this.toFixed(value, config.AVERAGING_DIGITS)),
+        map(value => toFixed(value, config.AVERAGING_DIGITS)),
       )
       .subscribe(temperature => {
         this.logger.log(temperature, new Date());
@@ -34,17 +35,9 @@ export class AppController {
       return source$.pipe(
         bufferTime(time),
         filter(values => values.length > 0),
-        map(values => this.sum(values)/values.length)
+        map(values => sum(values)/values.length)
       )
     }
-  }
-
-  private sum(values: number[]) {
-    return values.reduce((sum, value) => sum + value, 0);
-  }
-
-  private toFixed(value: number, digits: number): number {
-    return parseFloat(value.toFixed(digits));
   }
 
 }
