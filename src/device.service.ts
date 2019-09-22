@@ -14,17 +14,23 @@ export class DeviceService {
     share()
   );
 
-  public temperature$ = this.device$.pipe(
-    switchMap((device) => {
-      return fromEvent<[Temperature, Device]>(device, 'temperatureChanged')
+  public temperature$ = this.monitor<Temperature>('temperatureChanged')
+    .pipe(
+      map(measurment => measurment.value)
+    );
+
+  public monitor<T>(eventName: string) {
+    return this.device$.pipe(
+      switchMap(device => fromEvent<[T, Device]>(device, eventName)
         .pipe(
-          map(([temp]) => temp.value),
+          map(([measurment]) => measurment),
           timeout(config.MEASURMENT_TIMEOUT),
           catchError(error => {
             error.device = device;
-            return throwError(error)
+            return throwError(error);
           })
         )
-    })
-  );
+      )
+    )
+  }
 }
