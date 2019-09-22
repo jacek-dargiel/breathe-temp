@@ -19,6 +19,11 @@ export class DeviceService {
       map(measurment => measurment.value)
     );
 
+  /**
+   * The `pm2.5Changed` event actually returns AQI index values, not µg/m³ PM2.5.
+   */
+  public aqi$ = this.monitor<number>('pm2.5Changed');
+
   public monitor<T>(eventName: string) {
     return this.device$.pipe(
       switchMap(device => fromEvent<[T, Device]>(device, eventName)
