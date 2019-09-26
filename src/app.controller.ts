@@ -19,7 +19,7 @@ export class AppController {
         this.averageOverTime(),
         tap(value => this.logger.log('home-temperature', toFixed(value, 2))),
       ),
-      this.device.aqi$.pipe(
+      this.device.pm2_5$.pipe(
         this.averageOverTime(),
         tap(value => this.logger.log('home-aqi', toFixed(value, 2))),
       ),
