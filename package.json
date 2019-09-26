@@ -6,7 +6,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "tsc && node ./lib/index.js"
+    "build": "tsc",
+    "start": "tsc && node ./lib/index.js",
+    "pm2": "pm2"
   },
   "devDependencies": {
     "@types/core-js": "^2.5.2",
@@ -20,6 +22,7 @@
     "core-js": "^3.1.4",
     "dotenv": "^8.0.0",
     "miio": "jacek-dargiel/miio#zhimi.airpurifier.mc1",
+    "pm2": "^3.5.1",
     "rxjs": "^6.5.2",
     "tsyringe": "^3.2.0"
   }
