@@ -7,14 +7,12 @@
   "private": true,
   "scripts": {
     "build": "tsc",
-    "start": "tsc && node ./lib/index.js",
-    "pm2": "pm2"
+    "start": "tsc && node ./lib/index.js"
   },
   "devDependencies": {
     "@types/core-js": "^2.5.2",
     "@types/dotenv": "^6.1.1",
     "@types/node": "^12.0.10",
-    "pm2": "^3.5.1",
     "tsyringe": "^3.2.0",
     "typescript": "^3.5.2"
   },
